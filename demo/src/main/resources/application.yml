@@ -1,0 +1,27 @@
+server:
+  context-path: /demo
+  port: ${SERVER_PORT:8080}
+
+env:
+  datasource-url: jdbc:mysql://localhost:3306/wordpress?zeroDateTimeBehavior=convertToNull
+  datasource-username: root
+  datasource-password: example
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: ${env.datasource-url}
+    username: ${env.datasource-username}
+    password: ${env.datasource-password}
+
+mybatis:
+  typeAliasesPackage: com.edward.io.demo.domain
+  mapperLocations: classpath:sqlmap/**/*.xml
+  configLocation: classpath:mybatis.xml
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

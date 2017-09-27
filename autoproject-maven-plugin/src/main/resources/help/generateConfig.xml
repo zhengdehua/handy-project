@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--帮助：defaultModelType &ndash;&gt;-->
+    <!--[hierachical(domain类的主键与其他字段分开), flat(domain类所有字段在一个类中), conditional(domain类若存在主键，则和其他字段分开，否则所有字段在一个类中)]-->
+    <context id="testTables" targetRuntime="MyBatis3" defaultModelType="hierarchical">
+
+        <!--定义插件(0 …… n)-->
+        <plugin type="com.edward.io.plugin.support.plugins.BaseEntityPlugin" />
+
+        <!--mybatis-generator插件生成的注释控制-->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--Oracle 数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <!--<jdbcConnection driverClass="oracle.jdbc.OracleDriver"-->
+        <!--connectionURL="jdbc:oracle:thin:@10.30.52.24:1521:hsdb"-->
+        <!--userId="ch_stock"-->
+        <!--password="hundsun">-->
+        <!--</jdbcConnection>-->
+
+        <!--MySQL 数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://120.25.162.238:3306/mybatis001?characterEncoding=utf-8"
+                        userId="root"
+                        password="123">
+        </jdbcConnection>
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- domain类生成 -->
+        <javaModelGenerator targetPackage="com.edward.io.demo.domain"
+                            targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- sqlmap文件生成 -->
+        <sqlMapGenerator targetPackage="com.edward.io.demo.mapper"
+                         targetProject=".\src\main\resources\sqlmap">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- mapper接口生成，如果和code-generate 一起使用，此项无需开启-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.edward.io.demo.mapper"
+                             targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 指定数据库表 -->
+        <table tableName="ACCOUNTING_ADJUST"></table>
+        <table tableName="SETTLEMENT_ORDERS"></table>
+
+        <!-- 有些表的字段需要指定java类型
+         <table schema="" tableName="">
+            <columnOverride column="" javaType="" />
+        </table> -->
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,13 @@
+LNode* createList() {
+    LNode *h, *p, *q;
+    h = (LNode*)malloc(sizeof(LNode));
+    p = h;
+    for(int i=1; i<10; i++) {
+        q = (LNode*)malloc(sizeof(LNode));
+        q->data = i;
+        p->next = q;
+        p = q;
+    }
+    p->next = NULL;
+    return h;
+}
